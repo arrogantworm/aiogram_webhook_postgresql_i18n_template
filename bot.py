@@ -8,7 +8,7 @@ from aiogram.utils.i18n import I18n
 from core.middlewares.i18nmiddleware import DBI18nMiddleware
 from core.settings import config
 from core.utils import commands
-from core.middlewares import dbmiddleware
+from core.middlewares.dbmiddleware import DbSession
 from core.handlers import basic
 
 
@@ -36,8 +36,7 @@ async def start():
                                              command_timeout=60)
 
     # i18n
-    # i18n = I18n(path="locales", default_locale="en", domain="messages")
-    # i18n_middleware = DBI18nMiddleware(i18n=i18n, connector=pool_connect)
+    i18n = I18n(path="locales", default_locale="en", domain="messages")
 
     # Dispatcher
     dp = Dispatcher()
@@ -45,8 +44,8 @@ async def start():
     dp.shutdown.register(on_shutdown)
 
     # Middlewares
-    # dp.update.middleware.register(DBI18nMiddleware(i18n=i18n, connector=pool_connect))
-    dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
+    dp.update.middleware.register(DbSession(connector=pool_connect))
+    dp.update.middleware.register(DBI18nMiddleware(i18n=i18n, connector=pool_connect))
 
     # Routers
     dp.include_router(basic.router)

@@ -16,23 +16,19 @@ router = Router()
 async def start_handler(message: Message, state: FSMContext, request: dbconnect.Request):
     await request.new_user(message.from_user.id, message.from_user.username)
     await state.clear()
-    await message.answer('Привет', reply_markup=ReplyKeyboardRemove())
+    await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Command(commands=["en"]))
-async def start_handler(message: Message, request: dbconnect.Request):
-    await request.set_locale(message.from_user.id, 'en')
-    locale = await request.get_locale(message.from_user.id)
-    await message.answer(f'{locale}')
-    await message.answer('Привет', reply_markup=ReplyKeyboardRemove())
+async def start_handler(message: Message, request: DBI18nMiddleware):
+    await request.set_locale(message, 'en')
+    await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Command(commands=["ru"]))
-async def start_handler(message: Message, request: dbconnect.Request):
-    await request.set_locale(message.from_user.id, 'ru')
-    locale = await request.get_locale(message.from_user.id)
-    await message.answer(f'{locale}')
-    await message.answer('Привет', reply_markup=ReplyKeyboardRemove())
+async def start_handler(message: Message, request: DBI18nMiddleware):
+    await request.set_locale(message, 'ru')
+    await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Command(commands=["cancel"]))
