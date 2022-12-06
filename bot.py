@@ -47,9 +47,9 @@ async def start():
 
     # Middlewares
     dp.update.middleware.register(FSMI18nMiddleware(i18n=i18n))
-    dp.message.register(FSMI18nMiddleware.set_locale(self=FSMI18nMiddleware(i18n), state=any_state, locale='en'),
+    dp.message.register(await FSMI18nMiddleware.set_locale(self=FSMI18nMiddleware(i18n), state=any_state, locale='en'),
                         Command(commands=['en']))
-    dp.message.register(FSMI18nMiddleware.set_locale(self=FSMI18nMiddleware(i18n), state=any_state, locale='ru'),
+    dp.message.register(await FSMI18nMiddleware.set_locale(self=FSMI18nMiddleware(i18n), state=any_state, locale='ru'),
                         Command(commands=['ru']))
     dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
 
