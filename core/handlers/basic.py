@@ -21,7 +21,7 @@ async def start_handler(message: Message, state: FSMContext, request: dbconnect.
 @router.message(Command(commands=["en"]))
 async def start_handler(message: Message, request: dbconnect.Request):
     await request.set_locale(message.from_user.id, 'en')
-    await DBI18nMiddleware.set_locale('en')
+    await DBI18nMiddleware.set_locale(locale='en')
     locale = await request.get_locale(message.from_user.id)
     await message.answer(f'{locale}')
     await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
@@ -30,7 +30,7 @@ async def start_handler(message: Message, request: dbconnect.Request):
 @router.message(Command(commands=["ru"]))
 async def start_handler(message: Message, request: dbconnect.Request):
     await request.set_locale(message.from_user.id, 'ru')
-    await DBI18nMiddleware.set_locale('ru')
+    await DBI18nMiddleware.set_locale(locale='ru')
     locale = await request.get_locale(message.from_user.id)
     await message.answer(f'{locale}')
     await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
