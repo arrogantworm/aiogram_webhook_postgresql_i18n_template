@@ -18,8 +18,7 @@ async def start_handler(message: Message):
 
 @router.callback_query(F.data.startswith('set_lang'))
 async def set_lang_ru(call: CallbackQuery, request: DBI18nMiddleware):
-    lang = call.data.split()[0]
-    print(lang)
+    lang = call.data.split()[1]
     await call.message.delete()
     if lang == 'ru':
         await request.set_locale(call.from_user.id, 'ru')
