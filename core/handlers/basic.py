@@ -4,7 +4,7 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from aiogram.filters.text import Text
 from aiogram.utils.i18n import gettext as _
-from aiogram.utils.i18n import I18n
+from aiogram.utils.i18n import lazy_gettext as __
 from core.middlewares.i18nmiddleware import DBI18nMiddleware
 from core.utils import dbconnect
 

@@ -25,7 +25,12 @@ class DBI18nMiddleware(FSMI18nMiddleware):
             handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
             event: TelegramObject,
             data: Dict[str, Any]) -> Any:
-        async with self.connector.acquire() as connect:
+        current_locale = await self.get_locale(event=event, data=data) or self.i18n.default_locale
+        if self.i18n_key:
+            data[self.i18n_key] = self.i18n
+        if self.middleware_key:
+            data[self.middleware_key] = self
+        async with self.i18n.context(), self.i18n.use_locale(current_locale), self.connector.acquire() as connect:
             data['request'] = Request(connect)
             return await handler(event, data)
 
