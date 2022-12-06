@@ -30,8 +30,9 @@ class DBI18nMiddleware(I18nMiddleware):
             data[self.i18n_key] = self.i18n
         if self.middleware_key:
             data[self.middleware_key] = self
-        async with self.i18n.context(), self.i18n.use_locale(current_locale), self.connector.acquire() as connect:
-            data['request'] = Request(connect)
+        data['request'] = Request(self.connector.acquire())
+
+        async with self.i18n.context(), self.i18n.use_locale(current_locale):
             return await handler(event, data)
 
     async def get_locale(self, event: TelegramObject, data: Dict[str, Any]) -> str:
