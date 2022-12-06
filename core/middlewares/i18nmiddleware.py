@@ -24,11 +24,12 @@ class DBI18nMiddleware(I18nMiddleware):
 
     async def get_locale(self, event: TelegramObject, data: Dict[str, Any]) -> str:
         event_from_user: Optional[User] = data.get("event_from_user", None)
+        user_id = int(event_from_user.id)
         query = """SELECT locale FROM UserInfo WHERE user_id = $1"""
-        locale = await self.connector.fetchrow(query, event_from_user.id)
+        locale = await self.connector.fetchrow(query, user_id)
         return locale
 
-    async def set_locale(self, message: Message, locale: str) -> None:
+    async def set_locale(self, user_id: int, locale: str) -> None:
         query = """UPDATE UserInfo SET locale=$2 WHERE user_id = $1"""
-        await self.connector.execute(query, message.from_user.id, locale)
+        await self.connector.execute(query, user_id, locale)
         self.i18n.current_locale = locale
