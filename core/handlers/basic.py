@@ -1,5 +1,6 @@
 from aiogram import Router, Bot
 from aiogram.filters import Command
+from aiogram.methods import DeleteMyCommands
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from aiogram.filters.text import Text
@@ -23,6 +24,7 @@ async def start_handler(message: Message, state: FSMContext, request: dbconnect.
 @router.message(Command(commands=["en"]))
 async def start_handler(message: Message, request: DBI18nMiddleware, bot: Bot):
     await request.set_locale(message.from_user.id, 'en')
+    await DeleteMyCommands()
     await commands.set_commands_en(bot)
     await message.answer(_('Language set'), reply_markup=ReplyKeyboardRemove())
 
@@ -30,6 +32,7 @@ async def start_handler(message: Message, request: DBI18nMiddleware, bot: Bot):
 @router.message(Command(commands=["ru"]))
 async def start_handler(message: Message, request: DBI18nMiddleware, bot: Bot):
     await request.set_locale(message.from_user.id, 'ru')
+    await DeleteMyCommands()
     await commands.set_commands_ru(bot)
     await message.answer(_('Язык изменен'), reply_markup=ReplyKeyboardRemove())
 
