@@ -2,7 +2,7 @@ from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeDefault
 
 
-async def set_commands(bot: Bot):
+async def set_commands_ru(bot: Bot):
     commands = [
         BotCommand(
             command='start',
@@ -31,6 +31,41 @@ async def set_commands(bot: Bot):
         BotCommand(
             command='lang',
             description='Изменить язык'
+        ),
+    ]
+
+    await bot.set_my_commands(commands, BotCommandScopeDefault())
+
+
+async def set_commands_en(bot: Bot):
+    commands = [
+        BotCommand(
+            command='start',
+            description='Bot start'
+        ),
+        BotCommand(
+            command='cancel',
+            description='Cancel'
+        ),
+        BotCommand(
+            command='catalogue',
+            description='Catalogue'
+        ),
+        BotCommand(
+            command='payment',
+            description='Payment'
+        ),
+        BotCommand(
+            command='profile',
+            description='My profile'
+        ),
+        BotCommand(
+            command='question',
+            description='Support ticket'
+        ),
+        BotCommand(
+            command='lang',
+            description='Change language'
         ),
     ]
 
