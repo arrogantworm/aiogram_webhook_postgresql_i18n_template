@@ -9,11 +9,11 @@ from core.middlewares.i18nmiddleware import DBI18nMiddleware
 from core.settings import config
 from core.utils import commands
 from core.middlewares.dbmiddleware import DbSession
-from core.handlers import basic
+from core.handlers import basic, language
 
 
 async def on_startup(bot: Bot):
-    await commands.set_commands_en(bot)
+    await commands.set_commands(bot)
     await bot.send_message(chat_id=config.ADMIN_ID, text='Бот запущен')
 
 
@@ -50,6 +50,7 @@ async def start():
 
     # Routers
     dp.include_router(basic.router)
+    dp.include_router(language.router)
 
     try:
         await bot.set_webhook(
