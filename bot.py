@@ -27,10 +27,6 @@ async def start():
                                '(%(filename)s).%(funcName)s(%(lineno)d) - %(message)s')
     bot = Bot(config.BOT_TOKEN.get_secret_value())
 
-    #i18n
-    i18n = I18n(path="locales", default_locale="en", domain="messages")
-    i18n_middleware = DBI18nMiddleware(i18n=i18n)
-
     # PostgreSQL connection
     pool_connect = await asyncpg.create_pool(user=config.DB_USER.get_secret_value(),
                                              password=config.DB_PASSWORD.get_secret_value(),
@@ -38,6 +34,10 @@ async def start():
                                              host=config.DB_HOST,
                                              port=config.DB_PORT,
                                              command_timeout=60)
+
+    # i18n
+    i18n = I18n(path="locales", default_locale="en", domain="messages")
+    i18n_middleware = DBI18nMiddleware(i18n=i18n, connector=pool_connect)
 
     # Dispatcher
     dp = Dispatcher()
