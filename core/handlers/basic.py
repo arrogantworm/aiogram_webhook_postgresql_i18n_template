@@ -2,6 +2,8 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import any_state
+from aiogram.utils.i18n import FSMI18nMiddleware
 from aiogram.filters.text import Text
 from aiogram.utils.i18n import gettext as _
 from core.utils import dbconnect
@@ -18,7 +20,14 @@ async def start_handler(message: Message, state: FSMContext, request: dbconnect.
 
 
 @router.message(Command(commands=["en"]))
-async def start_handler(message: Message):
+async def start_handler(message: Message, state: FSMContext):
+    await FSMI18nMiddleware.set_locale(state=state, locale='en')
+    await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
+
+
+@router.message(Command(commands=["ru"]))
+async def start_handler(message: Message, state: FSMContext):
+    await FSMI18nMiddleware.set_locale(state=state, locale='ru')
     await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
 
 
