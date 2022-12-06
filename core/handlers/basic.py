@@ -1,9 +1,10 @@
-from aiogram import Router
+from aiogram import Router, Bot
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from aiogram.filters.text import Text
 from aiogram.utils.i18n import gettext as _
+from core.utils import commands
 from core.utils import dbconnect
 
 
@@ -11,8 +12,9 @@ router = Router()
 
 
 @router.message(Command(commands=["start"]))
-async def start_handler(message: Message, state: FSMContext, request: dbconnect.Request):
+async def start_handler(message: Message, state: FSMContext, request: dbconnect.Request, bot: Bot):
     await request.new_user(message.from_user.id, message.from_user.username)
+    await commands.set_commands(bot)
     await state.clear()
     await message.answer(_('Привет'), reply_markup=ReplyKeyboardRemove())
 

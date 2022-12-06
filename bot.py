@@ -13,7 +13,7 @@ from core.handlers import basic
 
 
 async def on_startup(bot: Bot):
-    await commands.set_commands(bot)
+    # await commands.set_commands(bot)
     await bot.send_message(chat_id=config.ADMIN_ID, text='Бот запущен')
 
 
