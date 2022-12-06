@@ -1,14 +1,6 @@
-from aiogram.utils.i18n import I18nMiddleware, SimpleI18nMiddleware
-from aiogram.types import TelegramObject, Message
-from abc import ABC, abstractmethod
-from typing import Any, Awaitable, Callable, Dict, Optional, Set, cast
+from aiogram.utils.i18n import SimpleI18nMiddleware
+from typing import Any, Dict, Optional, cast
 from core.utils.dbconnect import Request
-try:
-    from babel import Locale, UnknownLocaleError
-except ImportError:  # pragma: no cover
-    Locale = 'en'
-from aiogram import BaseMiddleware, Router
-from aiogram.fsm.context import FSMContext
 from aiogram.types import TelegramObject, User
 from aiogram.utils.i18n.core import I18n
 
@@ -38,5 +30,6 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
             return self.i18n.default_locale
         return cast(str, locale)
 
-    async def set_locale(self, locale: str) -> None:
+    async def set_locale(self, user_id: int, locale: str) -> None:
+        await Request.set_locale(user_id, locale)
         self.i18n.current_locale = locale

@@ -6,9 +6,6 @@ from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_applicati
 from aiohttp import web
 from aiogram.utils.i18n import I18n
 from core.middlewares.i18nmiddleware import DBI18nMiddleware
-from core.utils.dbconnect import Request
-from aiogram.fsm.state import any_state
-from aiogram.filters import Command
 from core.settings import config
 from core.utils import commands
 from core.middlewares import dbmiddleware
