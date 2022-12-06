@@ -1,12 +1,14 @@
 import asyncio
 import asyncpg
 import logging
+from pathlib import Path
 from aiogram import Bot, Dispatcher
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp import web
+from aiogram.utils.i18n import I18n
 from core.settings import config
 from core.utils import commands
-from core.middlewares import dbmiddleware
+from core.middlewares import dbmiddleware, i18nmiddleware
 from core.handlers import basic
 
 
@@ -25,6 +27,9 @@ async def start():
                                '(%(filename)s).%(funcName)s(%(lineno)d) - %(message)s')
     bot = Bot(config.BOT_TOKEN.get_secret_value())
 
+    #i18n
+    i18n = I18n(path="locales", default_locale="en", domain="messages")
+
     # PostgreSQL connection
     pool_connect = await asyncpg.create_pool(user=config.DB_USER.get_secret_value(),
                                              password=config.DB_PASSWORD.get_secret_value(),
@@ -39,6 +44,7 @@ async def start():
     dp.shutdown.register(on_shutdown)
 
     # Middlewares
+    dp.update.middleware.register(i18nmiddleware.SimpleI18nMiddleware(i18n))
     dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
 
     # Routers

@@ -1,0 +1,51 @@
+# Translations template for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-12-06 11:55+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: core/handlers/basic.py:17
+msgid "Привет"
+msgstr ""
+
+#: core/utils/commands.py:10
+msgid "Начало работы"
+msgstr ""
+
+#: core/utils/commands.py:14
+msgid "Отменить действие"
+msgstr ""
+
+#: core/utils/commands.py:18
+msgid "Каталог"
+msgstr ""
+
+#: core/utils/commands.py:22
+msgid "Пополнить баланс"
+msgstr ""
+
+#: core/utils/commands.py:26
+msgid "Мой профиль"
+msgstr ""
+
+#: core/utils/commands.py:30
+msgid "Задать вопрос"
+msgstr ""
+
+#: core/utils/commands.py:34
+msgid "Изменить язык"
+msgstr ""
+
