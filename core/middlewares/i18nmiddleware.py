@@ -11,11 +11,11 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
 
     def __init__(
         self,
+        connector: asyncpg.pool.Pool,
         i18n: I18n,
         key: str = "locale",
         i18n_key: Optional[str] = "i18n",
         middleware_key: str = "i18n_middleware",
-        connector: asyncpg.pool.Pool,
     ) -> None:
         super().__init__(i18n=i18n, i18n_key=i18n_key, middleware_key=middleware_key)
         self.key = key
