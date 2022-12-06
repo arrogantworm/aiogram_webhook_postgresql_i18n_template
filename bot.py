@@ -5,7 +5,8 @@ from aiogram import Bot, Dispatcher
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp import web
 from aiogram.utils.i18n import I18n
-from aiogram.utils.i18n.middleware import FSMI18nMiddleware
+from core.middlewares.i18nmiddleware import DBI18nMiddleware
+from core.utils.dbconnect import Request
 from aiogram.fsm.state import any_state
 from aiogram.filters import Command
 from core.settings import config
@@ -31,6 +32,7 @@ async def start():
 
     #i18n
     i18n = I18n(path="locales", default_locale="en", domain="messages")
+    i18n_middleware = DBI18nMiddleware(i18n=i18n)
 
     # PostgreSQL connection
     pool_connect = await asyncpg.create_pool(user=config.DB_USER.get_secret_value(),
@@ -46,7 +48,7 @@ async def start():
     dp.shutdown.register(on_shutdown)
 
     # Middlewares
-    dp.update.middleware.register(FSMI18nMiddleware(i18n=i18n))
+    dp.update.middleware.register(i18n_middleware)
     dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
 
     # Routers
