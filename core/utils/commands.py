@@ -1,37 +1,37 @@
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeDefault
-from aiogram.utils.i18n import gettext as _
+from aiogram.utils.i18n import lazy_gettext as __
 
 
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(
             command='start',
-            description=_('Начало работы')
+            description=__('Начало работы')
         ),
         BotCommand(
             command='cancel',
-            description=_('Отменить действие')
+            description=__('Отменить действие')
         ),
         BotCommand(
             command='catalogue',
-            description=_('Каталог')
+            description=__('Каталог')
         ),
         BotCommand(
             command='payment',
-            description=_('Пополнить баланс')
+            description=__('Пополнить баланс')
         ),
         BotCommand(
             command='profile',
-            description=_('Мой профиль')
+            description=__('Мой профиль')
         ),
         BotCommand(
             command='question',
-            description=_('Задать вопрос')
+            description=__('Задать вопрос')
         ),
         BotCommand(
             command='lang',
-            description=_('Изменить язык')
+            description=__('Изменить язык')
         ),
     ]
 
