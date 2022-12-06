@@ -38,6 +38,5 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
             return self.i18n.default_locale
         return cast(str, locale)
 
-    async def set_locale(self, state: FSMContext, locale: str) -> None:
-        await state.update_data(data={self.key: locale})
+    async def set_locale(self, locale: str) -> None:
         self.i18n.current_locale = locale

@@ -13,7 +13,6 @@ class Request:
     async def get_locale(self, user_id):
         query = """SELECT locale FROM UserInfo WHERE user_id = $1"""
         locale = await self.connector.fetchrow(query, (user_id,))
-        print(locale['locale'])
         return locale['locale']
 
     async def set_locale(self, user_id, locale):
