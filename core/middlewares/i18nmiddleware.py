@@ -3,7 +3,7 @@ from aiogram.utils.i18n import SimpleI18nMiddleware
 from typing import Any, Dict, Optional, cast, Callable, Awaitable
 from core.utils.dbconnect import Request
 from aiogram.types import TelegramObject, User, Message
-from aiogram.utils.i18n import I18n
+from aiogram.utils.i18n.core import I18n
 
 
 class DBI18nMiddleware(SimpleI18nMiddleware):
