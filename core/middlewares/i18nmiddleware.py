@@ -33,7 +33,7 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
         if event_from_user is None or event_from_user.id is None:
             return self.i18n.default_locale
         try:
-            locale = self.sql_get_locale(event_from_user.id)
+            locale = await self.sql_get_locale(event_from_user.id)
         except:
             return self.i18n.default_locale
         if locale not in self.i18n.available_locales:
