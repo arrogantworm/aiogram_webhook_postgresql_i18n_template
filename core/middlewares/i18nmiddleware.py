@@ -20,13 +20,6 @@ class DBI18nMiddleware(I18nMiddleware):
         self.connector = connector
         self.key = key
 
-    async def __call__(
-            self,
-            handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-            event: TelegramObject,
-            data: Dict[str, Any]) -> Any:
-        data['request'] = Request(self.connector.acquire())
-
     async def get_locale(self, event: TelegramObject, data: Dict[str, Any]) -> str:
         event_from_user: Optional[User] = data.get("event_from_user", None)
         if event_from_user is None or event_from_user.language_code is None:
