@@ -46,7 +46,7 @@ async def start():
     dp.shutdown.register(on_shutdown)
 
     # Middlewares
-    dp.update.middleware.register(ConstI18nMiddleware(locale='ru', i18n=i18n))
+    dp.update.middleware.register(ConstI18nMiddleware(locale='en', i18n=i18n))
     dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
 
     # Routers
