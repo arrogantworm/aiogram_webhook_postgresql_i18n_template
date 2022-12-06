@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-12-06 11:55+0300\n"
-"PO-Revision-Date: 2022-12-06 11:57+0300\n"
+"POT-Creation-Date: 2022-12-06 20:45+0300\n"
+"PO-Revision-Date: 2022-12-06 20:53+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -20,33 +20,9 @@ msgstr ""
 
 #: core/handlers/basic.py:17
 msgid "Привет"
-msgstr "Hi"
+msgstr "Hello"
 
-#: core/utils/commands.py:10
-msgid "Начало работы"
-msgstr "Start"
-
-#: core/utils/commands.py:14
-msgid "Отменить действие"
-msgstr "Cancel"
-
-#: core/utils/commands.py:18
-msgid "Каталог"
-msgstr "Catalogue"
-
-#: core/utils/commands.py:22
-msgid "Пополнить баланс"
-msgstr "Pay"
-
-#: core/utils/commands.py:26
-msgid "Мой профиль"
-msgstr "My profile"
-
-#: core/utils/commands.py:30
-msgid "Задать вопрос"
-msgstr "Support"
-
-#: core/utils/commands.py:34
-msgid "Изменить язык"
-msgstr "Change language"
+#: core/handlers/language.py:15
+msgid "Выбери язык"
+msgstr "Select language"
 
