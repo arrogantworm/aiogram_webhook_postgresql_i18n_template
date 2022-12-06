@@ -1,5 +1,5 @@
 import asyncpg
-from aiogram.utils.i18n import I18nMiddleware
+from aiogram.utils.i18n.middleware import I18nMiddleware
 from typing import Any, Dict, Optional, cast, Callable, Awaitable
 from core.utils.dbconnect import Request
 from aiogram.types import TelegramObject, User, Message
