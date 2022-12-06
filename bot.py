@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp import web
 from aiogram.utils.i18n import I18n
-from aiogram.utils.i18n.middleware import SimpleI18nMiddleware
+from aiogram.utils.i18n.middleware import FSMI18nMiddleware
 from aiogram.filters import Command
 from core.settings import config
 from core.utils import commands
@@ -45,7 +45,7 @@ async def start():
     dp.shutdown.register(on_shutdown)
 
     # Middlewares
-    dp.update.middleware.register(SimpleI18nMiddleware(i18n))
+    dp.update.middleware.register(FSMI18nMiddleware(i18n))
     dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
 
     # Routers
