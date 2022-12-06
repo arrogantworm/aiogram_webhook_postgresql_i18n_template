@@ -37,7 +37,7 @@ async def start():
 
     # i18n
     i18n = I18n(path="locales", default_locale="en", domain="messages")
-    i18n_middleware = DBI18nMiddleware(i18n=i18n, connector=pool_connect)
+    # i18n_middleware = DBI18nMiddleware(i18n=i18n, connector=pool_connect)
 
     # Dispatcher
     dp = Dispatcher()
@@ -45,7 +45,7 @@ async def start():
     dp.shutdown.register(on_shutdown)
 
     # Middlewares
-    dp.update.middleware.register(i18n_middleware)
+    dp.update.middleware.register(DBI18nMiddleware(i18n=i18n, connector=pool_connect))
     dp.update.middleware.register(dbmiddleware.DbSession(pool_connect))
 
     # Routers

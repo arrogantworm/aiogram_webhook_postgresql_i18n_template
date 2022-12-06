@@ -4,7 +4,6 @@ from typing import Any, Dict, Optional, cast, Callable, Awaitable
 from core.utils.dbconnect import Request
 from aiogram.types import TelegramObject, User, Message
 from aiogram.utils.i18n import I18n
-from core.middlewares.dbmiddleware import DbSession
 
 
 class DBI18nMiddleware(SimpleI18nMiddleware):
@@ -22,10 +21,9 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
         self.connector = connector
 
     async def __call__(self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-        event: TelegramObject,
-        data: Dict[str, Any],
-    ) -> Any:
+                       handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+                       event: TelegramObject,
+                       data: Dict[str, Any]) -> Any:
         async with self.connector.acquire() as connect:
             data['request'] = Request(connect)
             return await handler(event, data)
@@ -45,7 +43,6 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
     async def set_locale(self, message: Message, locale: str) -> None:
         await self.sql_set_locale(message.from_user.id, locale)
         self.i18n.current_locale = locale
-
 
     async def sql_get_locale(self, user_id):
         query = """SELECT locale FROM UserInfo WHERE user_id = $1"""
