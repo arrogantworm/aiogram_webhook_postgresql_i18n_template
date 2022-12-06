@@ -30,6 +30,6 @@ class DBI18nMiddleware(SimpleI18nMiddleware):
             return self.i18n.default_locale
         return cast(str, locale)
 
-    async def set_locale(self, user_id: int, locale: str) -> None:
-        await Request.set_locale(user_id, locale)
+    async def set_locale(self, request: Request, user_id: int, locale: str) -> None:
+        await Request.set_locale(self=request, user_id=user_id, locale=locale)
         self.i18n.current_locale = locale
