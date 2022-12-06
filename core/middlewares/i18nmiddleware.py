@@ -12,11 +12,13 @@ class DBI18nMiddleware(I18nMiddleware):
             self,
             i18n: I18n,
             connector: asyncpg.pool.Pool,
+            key: str = "locale",
             i18n_key: Optional[str] = "i18n",
             middleware_key: str = "i18n_middleware",
     ) -> None:
         super().__init__(i18n=i18n, i18n_key=i18n_key, middleware_key=middleware_key)
         self.connector = connector
+        self.key = key
 
     async def __call__(
             self,
@@ -29,7 +31,9 @@ class DBI18nMiddleware(I18nMiddleware):
 
     async def get_locale(self, event: TelegramObject, data: Dict[str, Any]) -> str:
         event_from_user: Optional[User] = data.get("event_from_user", None)
-        user_id = int(event_from_user.id)
+        if event_from_user is None or event_from_user.language_code is None:
+            return self.i18n.default_locale
+        user_id = event_from_user.id
         query = """SELECT locale FROM UserInfo WHERE user_id = $1"""
         locale = await self.connector.fetchrow(query, user_id)
         return locale
