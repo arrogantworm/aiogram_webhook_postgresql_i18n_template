@@ -6,7 +6,7 @@ class Request:
         self.connector = connector
 
     async def new_user(self, user_id, username):
-        query = """INSERT INTO UserInfo (user_id, username) VALUES ($1, $2)
+        query = """INSERT INTO UserInfo (user_id, username, locale) VALUES ($1, $2, 'en')
                 ON CONFLICT (user_id) DO UPDATE SET username=$2"""
         await self.connector.execute(query, user_id, username)
 
