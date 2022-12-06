@@ -8,16 +8,21 @@ from aiogram.utils.i18n.core import I18n
 
 class DBI18nMiddleware(I18nMiddleware):
 
-    def __init__(self,
-                 i18n: I18n,
-                 connector: asyncpg.pool.Pool):
-        super().__init__(i18n=i18n)
+    def __init__(
+            self,
+            i18n: I18n,
+            connector: asyncpg.pool.Pool,
+            i18n_key: Optional[str] = "i18n",
+            middleware_key: str = "i18n_middleware",
+    ) -> None:
+        super().__init__(i18n=i18n, i18n_key=i18n_key, middleware_key=middleware_key)
         self.connector = connector
 
-    async def __call__(self,
-                       handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-                       event: TelegramObject,
-                       data: Dict[str, Any]) -> Any:
+    async def __call__(
+            self,
+            handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+            event: TelegramObject,
+            data: Dict[str, Any]) -> Any:
         async with self.connector.acquire() as connect:
             data['request'] = Request(connect)
             return await handler(event, data)
@@ -27,7 +32,6 @@ class DBI18nMiddleware(I18nMiddleware):
         user_id = int(event_from_user.id)
         query = """SELECT locale FROM UserInfo WHERE user_id = $1"""
         locale = await self.connector.fetchrow(query, user_id)
-        print(locale)
         return locale
 
     async def set_locale(self, user_id: int, locale: str) -> None:
