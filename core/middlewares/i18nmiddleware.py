@@ -1,12 +1,12 @@
 import asyncpg
-from aiogram.utils.i18n.middleware import I18nMiddleware
+from aiogram.utils.i18n.middleware import FSMI18nMiddleware
 from typing import Any, Dict, Optional, cast, Callable, Awaitable
 from core.utils.dbconnect import Request
 from aiogram.types import TelegramObject, User, Message
 from aiogram.utils.i18n.core import I18n
 
 
-class DBI18nMiddleware(I18nMiddleware):
+class DBI18nMiddleware(FSMI18nMiddleware):
 
     def __init__(
             self,
