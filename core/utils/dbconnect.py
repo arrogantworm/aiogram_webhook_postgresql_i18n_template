@@ -16,5 +16,5 @@ class Request:
         return locale['locale']
 
     async def set_locale(self, user_id, locale):
-        query = """UPDATE UserInfo SET VALUES locale=$2 WHERE user_id = $1"""
+        query = """UPDATE UserInfo SET locale=$2 WHERE user_id = $1"""
         await self.connector.execute(user_id, locale)
