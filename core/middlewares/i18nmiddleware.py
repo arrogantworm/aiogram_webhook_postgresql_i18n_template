@@ -27,9 +27,10 @@ class DBI18nMiddleware(I18nMiddleware):
         user_id = event_from_user.id
         query = """SELECT locale FROM UserInfo WHERE user_id = $1"""
         locale = await self.connector.fetchrow(query, user_id)
+        print(locale['locale'])
         return locale['locale']
 
     async def set_locale(self, user_id: int, locale: str) -> None:
         query = """UPDATE UserInfo SET locale=$2 WHERE user_id = $1"""
         await self.connector.execute(query, user_id, locale)
-        self.i18n.current_locale = locale['locale']
+        self.i18n.current_locale = locale
